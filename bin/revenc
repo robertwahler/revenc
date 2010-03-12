@@ -9,7 +9,7 @@ require 'term/ansicolor'
 available_actions = Revenc::AVAILABLE_ACTIONS
 
 banner = <<BANNER
-Revenc is an encfs helper
+Revenc is an EncFS helper
 
   Usage: revenc action [options]
 BANNER
