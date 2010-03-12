@@ -1,6 +1,6 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-require 'basic_app'
+require 'revenc'
 require 'spec'
 require 'spec/autorun'
 require 'aruba/api'
