@@ -5,11 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "revenc"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "TODO: author email"
-    gem.homepage = "TODO: gem homepage url"
-    gem.authors = ["TODO: author names"]
+    gem.summary = %Q{Helper for reverse mounting encrypted file systems}
+    gem.description = %Q{Mount, unmount, and copy/synchronize encrypted files to 
+                         untrusted destinations using EncFS and rsync}
+    gem.email = "robert@gearheadforhire.com"
+    gem.homepage = "http://github.com/robertwahler/revenc"
+    gem.authors = ["Robert Wahler"]
 
     gem.add_dependency 'term-ansicolor', '>= 1.0.4'
     gem.add_dependency 'configatron', '>= 2.5.1'

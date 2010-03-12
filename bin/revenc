@@ -9,14 +9,18 @@ require 'term/ansicolor'
 available_actions = Revenc::AVAILABLE_ACTIONS
 
 banner = <<BANNER
-TODO: application tag line
+Revenc is an encfs helper
 
-  Usage: revenc [options]
+  Usage: revenc action [options]
 BANNER
 banner << "\nActions: #{available_actions.join(' ')}\n" unless available_actions.empty?
 
 help = banner
 help += <<HELP
+  Mount: revenc mount <unencrypted source> <empty mountpoint>
+Unmount: revenc unmount <mounted encypted folder> 
+   Copy: revenc copy <encrypted source>  <destination>
+         Note: Copying is normally done via rsync
 
 Options:
  

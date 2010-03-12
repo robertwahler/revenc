@@ -7,7 +7,7 @@ end
 
 module Revenc
 
-  AVAILABLE_ACTIONS = %w[]
+  AVAILABLE_ACTIONS = %w[mount unmount copy]
 
   class App
 
@@ -60,16 +60,28 @@ module Revenc
       end
     end
 
-  private
-
     #
     # app commands start
     #
+    # TODO: Add status command, use encfsctl
 
+    def mount
+      EncfsWrapper.new(@base_dir, @options).mount(ARGV.shift, ARGV.shift)
+    end
+
+    def unmount
+      EncfsWrapper.new(@base_dir, @options).unmount(ARGV.shift)
+    end
+
+    def copy
+      EncfsWrapper.new(@base_dir, @options).copy(ARGV.shift, ARGV.shift)
+    end
     
     #
     # app commands end
     #
+
+  private
 
     # true if application requires an action to be specified on the command line
     def action_argument_required?
@@ -78,6 +90,7 @@ module Revenc
 
     # read options for YAML config with ERB processing and initialize configatron
     def configure(options)
+      # TODO: read ~/.revenc.conf before looking in the current folder for revenc.conf, read BOTH files
       config = @options[:config]
       config = File.join(@base_dir, 'revenc.conf') unless config
       if File.exists?(config)
@@ -94,7 +107,21 @@ module Revenc
       # 
       # set defaults, these will NOT override setting read from YAML
       #
+      configatron.mount.source.set_default(:name, nil)
+      configatron.mount.mountpoint.set_default(:name, nil)
+      configatron.mount.passphrasefile.set_default(:name, 'passphrase')
+      configatron.mount.keyfile.set_default(:name, 'encfs6.xml')
+      configatron.mount.set_default(:cmd, nil)
+      configatron.mount.set_default(:executable, nil)
 
+      configatron.unmount.mountpoint.set_default(:name, nil)
+      configatron.unmount.set_default(:cmd, nil)
+      configatron.unmount.set_default(:executable, nil)
+
+      configatron.copy.source.set_default(:name, nil)
+      configatron.copy.destination.set_default(:name, nil)
+      configatron.copy.set_default(:cmd, nil)
+      configatron.copy.set_default(:executable, nil)
     end
 
   end

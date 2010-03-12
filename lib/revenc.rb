@@ -16,3 +16,7 @@ module Revenc
 end
 
 require 'revenc/app'
+require 'revenc/io'
+require 'revenc/errors'
+require 'revenc/lockfile'
+require 'revenc/encfs_wrapper'
