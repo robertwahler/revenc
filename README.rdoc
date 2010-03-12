@@ -60,7 +60,7 @@ This calls the executable "fusermount" with the following by default:
 
     <%= executable %> -u <%= mountpoint.name %>
 
-==== Unmount
+==== Copy
 
 Recursive copy with "cp -r", for rsync copy, see examples.  Source and destination
 are not required when specified by revenc.conf.
