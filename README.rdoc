@@ -121,7 +121,7 @@ EncFS command prompt responses:
     my_super_secret_PassPHRase     # confirm passphrase
 
 
-EncFS should generate this encfs6.xml, mount the folder and return you to the command prompt. You can 
+EncFS should generate encfs6.xml, mount the folder and return you to the command prompt. You can 
 now work with your encrypted files.
 
     ls encrypted_mountpoint
@@ -150,7 +150,7 @@ now work with your encrypted files.
 Revenc expects a passphrase file and the key file "encfs6.xml" to exist in the
 current folder.  You can override these locations using the revenc.conf file.  Revenc
 looks for its configuration file in the current folder. When you use configuration file,
-you can ommit off action parameters. For example:
+you can ommit action parameters. For example:
 
     cd examples/rsync
 
@@ -178,9 +178,9 @@ The file features/configuration.feature has more details.
 
 == Development Dependencies
 
-* rspec
-* cucumber
-* aruba
+* rspec for unit testing http://github.com/dchelimsky/rspec
+* cucumber for functional testing http://github.com/tpope/vim-cucumber
+* aruba for CLI testing http://github.com/aslakhellesoy/aruba
 
 == Note on Patches/Pull Requests
  
