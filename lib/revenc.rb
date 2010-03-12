@@ -2,7 +2,7 @@ $:.unshift File.dirname(__FILE__) # For use/testing when no gem is installed
 
 require 'rubygems'
 
-module BasicApp
+module Revenc
 
   # return the contents of the VERSION file
   # VERSION format: 0.0.0
@@ -15,4 +15,4 @@ module BasicApp
   
 end
 
-require 'basic_app/app'
+require 'revenc/app'
