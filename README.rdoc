@@ -179,7 +179,7 @@ The file features/configuration.feature has more details.
 == Development Dependencies
 
 * rspec for unit testing http://github.com/dchelimsky/rspec
-* cucumber for functional testing http://github.com/tpope/vim-cucumber
+* Cucumber for functional testing http://github.com/aslakhellesoy/cucumber
 * aruba for CLI testing http://github.com/aslakhellesoy/aruba
 
 == Note on Patches/Pull Requests
