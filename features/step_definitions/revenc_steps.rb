@@ -46,7 +46,7 @@ end
 When /^I run with a lock file present "(.*)"$/ do |cmd|
   lockfile = File.join(current_dir, 'revenc.lck')
   Revenc::Mutex.new(lockfile).execute do
-    run(unescape(cmd))
+    run(unescape(cmd), false)
   end
 end
 
