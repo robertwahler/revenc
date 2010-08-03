@@ -30,7 +30,7 @@ Feature: Unmounting a reverse mounted encrypted folder using encfs
   Scenario: Unmount folder not specified
     When I run "revenc unmount"
     Then the exit status should be 1
-    And I should see:
+    And the output should contain:
       """
       mountpoint not specified
       """
@@ -39,7 +39,7 @@ Feature: Unmounting a reverse mounted encrypted folder using encfs
     Given a directory named "encrypted_destination_folder"
     When I run "revenc unmount unencrypted_source_folder"
     Then the exit status should be 1
-    And I should see:
+    And the output should contain:
       """
       folder not found
       """
@@ -52,7 +52,7 @@ Feature: Unmounting a reverse mounted encrypted folder using encfs
       """
     When I run "revenc unmount unencrypted_source_folder"
     Then the exit status should be 1
-    And I should see:
+    And the output should contain:
       """
       executable not found
       """

@@ -36,7 +36,7 @@ Feature: Configuration via yaml file
 
   Scenario: Mount with a config file
     When I run "revenc --verbose --dry-run mount"
-    Then I should see:
+    Then the output should contain:
       """
       mount: source=source_folder_name
       mount: mountpoint=destination_folder_name
@@ -48,7 +48,7 @@ Feature: Configuration via yaml file
 
   Scenario: Unmount with a config file
     When I run "revenc unmount --verbose --dry-run"
-    Then I should see:
+    Then the output should contain:
       """
       unmount: mountpoint=defaults_to_mount_mountpoint
       unmount: cmd=/bin/echo -u defaults_to_mount_mountpoint
@@ -63,14 +63,14 @@ Feature: Configuration via yaml file
           name: unmount_mountpoint_defaults_to_me
       """
     When I run "revenc unmount --verbose --dry-run"
-    Then I should see:
+    Then the output should contain:
       """
       unmount: mountpoint=unmount_mountpoint_defaults_to_me
       """
 
   Scenario: Copy with a config file
     When I run "revenc copy --verbose --dry-run"
-    Then I should see:
+    Then the output should contain:
       """
       copy: source=copy_source_defaults_to_mount_mountpoint
       copy: destination=copy_to_destination
@@ -89,7 +89,7 @@ Feature: Configuration via yaml file
           name: copy_to_destination
       """
     When I run "revenc copy --verbose --dry-run"
-    Then I should see:
+    Then the output should contain:
       """
       copy: source=copy_source_defaults_to_me
       copy: destination=copy_to_destination
