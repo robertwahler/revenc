@@ -52,7 +52,7 @@ Feature: Copy encrypted data to another location via rsync
       """
     When I run with a lock file present "revenc copy encrypted_source_folder encrypted_destination"
     Then the exit status should be 1
-    And I should see:
+    And the output should contain:
       """
       action failed, lock file present
       """
@@ -60,7 +60,7 @@ Feature: Copy encrypted data to another location via rsync
   Scenario: Source folder not specified
     When I run "revenc copy"
     Then the exit status should be 1
-    And I should see:
+    And the output should contain:
       """
       source folder not specified
       """
@@ -68,7 +68,7 @@ Feature: Copy encrypted data to another location via rsync
   Scenario: Destination not specified
     When I run "revenc copy encrypted_source_folder"
     Then the exit status should be 1
-    And I should see:
+    And the output should contain:
       """
       destination not specified
       """
@@ -76,7 +76,7 @@ Feature: Copy encrypted data to another location via rsync
   Scenario: Source folder doesn't exist
     When I run "revenc copy encrypted_source_folder encrypted_destination"
     Then the exit status should be 1
-    And I should see:
+    And the output should contain:
       """
       source folder not found
       """
@@ -85,7 +85,7 @@ Feature: Copy encrypted data to another location via rsync
     Given a directory named "encrypted_source_folder"
     When I run "revenc copy encrypted_source_folder encrypted_destination"
     Then the exit status should be 1
-    And I should see:
+    And the output should contain:
       """
       source folder is empty
       """
@@ -107,7 +107,7 @@ Feature: Copy encrypted data to another location via rsync
           name: copy_to_destination
       """
     When I run "revenc copy --verbose --dry-run"
-    Then I should see:
+    Then the output should contain:
       """
       mountpoint is empty
       """
@@ -128,7 +128,7 @@ Feature: Copy encrypted data to another location via rsync
           name: copy_to_destination
       """
     When I run "revenc copy --verbose --dry-run"
-    Then I should see:
+    Then the output should contain:
       """
       mountpoint not found
       """
@@ -146,11 +146,11 @@ Feature: Copy encrypted data to another location via rsync
           name: copy_to_destination
       """
     When I run "revenc copy --verbose --dry-run"
-    Then I should not see:
+    Then the output should not contain:
       """
       mountpoint not found
       """
-    And I should not see:
+    And the output should not contain:
       """
       mountpoint is empty
       """
@@ -163,7 +163,7 @@ Feature: Copy encrypted data to another location via rsync
       """
     When I run "revenc copy encrypted_source_folder encrypted_destination"
     Then the exit status should be 1
-    And I should see:
+    And the output should contain:
       """
       executable not found
       """
