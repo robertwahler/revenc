@@ -1,22 +1,26 @@
-= Revenc
+Revenc
+======
 
 Mount an unencrypted folder as encrypted using EncFS and copy/synchronize the 
 encrypted files to untrusted destinations using rsync/cp
 
-== Background
+Background
+----------
 
 EncFS in reverse mode facilitates mounting an encrypted file system 
 from an unencrypted source folder.  This allows keeping your files unencrypted 
 in a trusted environment while gaining the ability to encrypt on demand 
 i.e. when you want to rsync encrypted files off-site to an untrusted system.
 
-== Why Revenc?
+Why Revenc?
+-----------
 
 Revenc facilitates scripting EncFS reverse mounting and synchronizing by 
 providing a configuration framework and validating mounts before running tools 
 like rsync.
 
-=== Benefits 
+Benefits 
+--------
 
 * Provides conventions for EncFS reverse mounting
 * Validates mountpoints before copying to prevent "rsync --delete" commands 
@@ -27,17 +31,20 @@ like rsync.
 * Allow short, easy to remember command lines when used with configuration files.
   i.e. revenc mount, revenc unmount, revenc copy
 
-== Installation
+Installation
+------------
 
-sudo gem install revenc
+gem install revenc
 
-== Usage
+
+Usage
+-----
 
 revenc action [options]
 
-=== Actions
+### Actions ###
 
-==== Mount
+#### Mount ####
 
 Reverse mount using EncFS. Source and mountpoint are not required when
 using a configuration file.
@@ -50,7 +57,7 @@ This calls the executable "encfs" with the following by default:
     <%= executable %> --stdinpass --reverse <%= source.name %> \
     <%= mountpoint.name %> -- -o ro
 
-==== Unmount
+#### Unmount ####
 
 Unmount using EncFS. Mountpoint is required when specified by revenc.conf.
 
@@ -60,7 +67,7 @@ This calls the executable "fusermount" with the following by default:
 
     <%= executable %> -u <%= mountpoint.name %>
 
-==== Copy
+#### Copy ####
 
 Recursive copy with "cp -r", for rsync copy, see examples.  Source and destination
 are not required when specified by revenc.conf.
@@ -71,7 +78,7 @@ This calls the executable "cp" with the following by default:
 
     <%= executable %> -r <%= source.name %> <%= destination.name %>
 
-=== Setup
+### Setup ###
 
 The following is a walk through of the steps used to create the example project
 "simple" in the examples folder.
@@ -85,7 +92,7 @@ The following is a walk through of the steps used to create the example project
     echo "some stuff" > unencrypted_data/test_file1.txt
     echo "some more stuff" > unencrypted_data/test_file2.txt
 
-=== Create the EncFS passphrase file
+### Create the EncFS passphrase file ###W
 
 You must supply EncFS with a passphrase in plain text. The passphrase is piped in on the command line
 to EncFS.  This file can be stored anywhere on your trusted system.  Revenc expects it in the 
@@ -94,7 +101,7 @@ current folder, use revenc.conf to supply a different location.
     echo "my_super_secret_PassPHRase" > passphrase
     chmod 600 passphrase
 
-=== Generate the EncFS key file
+### Generate the EncFS key file ###
 
 Generation of your key file is done once.  The same key is used for each mount action on the same 
 unencrypted source folder.  You need to keep a copy of your key available in order to restore encrypted files.
@@ -145,7 +152,7 @@ now work with your encrypted files.
         test_file1.txt  test_file2.txt
 
 
-=== Configuration files
+### Configuration files ###
 
 Revenc expects a passphrase file and the key file "encfs6.xml" to exist in the
 current folder.  You can override these locations using the revenc.conf file.  Revenc
@@ -166,33 +173,32 @@ See the example configuration file examples/rsync/revenc.conf.
 The file features/configuration.feature has more details.
 
 
-== System Requirements
+System Requirements 
+-------------------
 
 * POSIX system
 * EncFS http://www.arg0.net/encfs 
 
-== Runtime Dependencies
 
-* term-ansicolor
-* configatron
+Run-time dependencies 
+---------------------
+The following gems are required by default in applications cloned from BasicApp.
 
-== Development Dependencies
+* Term-ansicolor for optional color output <http://github.com/flori/term-ansicolor>
+* Configatron for configuration support <http://github.com/markbates/configatron>
 
-* rspec for unit testing http://github.com/dchelimsky/rspec
-* Cucumber for functional testing http://github.com/aslakhellesoy/cucumber
-* aruba for CLI testing http://github.com/aslakhellesoy/aruba
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version 
-  in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+Development dependencies
+------------------------
 
-== Copyright
+* Bundler for dependency management <http://github.com/carlhuda/bundler>
+* Rspec for unit testing <http://github.com/dchelimsky/rspec>
+* Cucumber for functional testing <http://github.com/aslakhellesoy/cucumber>
+* Aruba for CLI testing <http://github.com/aslakhellesoy/aruba>
+* YARD for documentation generation <http://github.com/lsegal/yard/wiki>
 
-Copyright (c) 2010 GearheadForHire, LLC. See LICENSE for details.
+
+Copyright
+---------
+
+Copyright (c) 2010 GearheadForHire, LLC. See [LICENSE](LICENSE) for details.
