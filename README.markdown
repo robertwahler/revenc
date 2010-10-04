@@ -92,7 +92,7 @@ The following is a walk through of the steps used to create the example project
     echo "some stuff" > unencrypted_data/test_file1.txt
     echo "some more stuff" > unencrypted_data/test_file2.txt
 
-### Create the EncFS passphrase file ###W
+### Create the EncFS passphrase file ###
 
 You must supply EncFS with a passphrase in plain text. The passphrase is piped in on the command line
 to EncFS.  This file can be stored anywhere on your trusted system.  Revenc expects it in the 
