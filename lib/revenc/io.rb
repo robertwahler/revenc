@@ -1,3 +1,5 @@
+require 'mutagem'
+
 module Revenc
 
   class BasicAction
@@ -180,7 +182,7 @@ module Revenc
       result = false
       
       # protect command from recursion
-      mutex = Revenc::Mutex.new
+      mutex = Mutagem::Mutex.new('revenc.lck')
       lock_sucessful = mutex.execute do
         result = system_cmd(cmd)
       end

@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "revenc"
 
+  s.add_dependency 'mutagem', '>= 0.1.3'
   s.add_dependency 'term-ansicolor', '>= 1.0.4'
   s.add_dependency 'configatron', '>= 2.5.1'
 

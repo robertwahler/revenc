@@ -1,3 +1,4 @@
+require 'mutagem'
 require 'revenc/io'
 
 Given /^a valid encfs keyfile named "([^\"]*)"$/ do |filename|
@@ -45,7 +46,7 @@ end
 
 When /^I run with a lock file present "(.*)"$/ do |cmd|
   lockfile = File.join(current_dir, 'revenc.lck')
-  Revenc::Mutex.new(lockfile).execute do
+  Mutagem::Mutex.new(lockfile).execute do
     run(unescape(cmd), false)
   end
 end

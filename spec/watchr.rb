@@ -119,7 +119,6 @@ watch( '^spec/(.*)_spec\.rb'   )   { |m| run_spec(m[0]) }
 watch( '^lib/revenc.rb'   )   { run_default_spec }
 watch( '^lib/errors.rb'   )   { run_default_spec }
 watch( '^lib/io.rb'   )   { run_default_spec }
-watch( '^lib/lockfile.rb'   )   { run_default_spec }
 
 # --------------------------------------------------
 # Signal Handling
