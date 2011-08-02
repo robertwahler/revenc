@@ -6,7 +6,7 @@ Feature: Copy encrypted data to another location via rsync
   And lock the process to prevent automated recursion on long running copy commands
   In order to backup the data and allow recovery of the unencrypted data
 
-  Scenario: Sucessful copy
+  Scenario: Successful copy
     Given a directory named "encrypted_source_folder"
     Given a directory named "encrypted_destination"
     Given an empty file named "encrypted_source_folder/test_data1.txt"
@@ -23,7 +23,7 @@ Feature: Copy encrypted data to another location via rsync
       | encrypted_destination/encrypted_source_folder/test_data1.txt |
       | encrypted_destination/encrypted_source_folder/test_data2.txt |
 
-  Scenario: Sucessful copy dry run
+  Scenario: Successful copy dry run
     Given a directory named "encrypted_source_folder"
     Given a directory named "encrypted_destination"
     Given an empty file named "encrypted_source_folder/test_data1.txt"

@@ -43,12 +43,9 @@ PLATFORMS
 DEPENDENCIES
   aruba (>= 0.2.0)
   bundler (>= 1.0.0)
-  configatron (>= 2.5.1)
   cucumber (>= 0.6)
-  mutagem (>= 0.1.3)
   rake (>= 0.8.7)
   rdiscount (>= 1.6.5)
   revenc!
   rspec (>= 1.2.9)
-  term-ansicolor (>= 1.0.4)
   yard (>= 0.6.1)

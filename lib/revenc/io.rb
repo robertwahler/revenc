@@ -91,7 +91,7 @@ module Revenc
       contents = nil
       File.open(@name, "r") do |f|
         contents = f.read
-      end 
+      end
       contents.empty?
     end
 
@@ -108,7 +108,7 @@ module Revenc
     end
 
     def validate
-      super 
+      super
       errors.add(self, "is empty") if empty?
     end
   end
@@ -120,7 +120,7 @@ module Revenc
     end
 
     def validate
-      super 
+      super
       errors.add(self, "is empty") if exists? && empty?
     end
   end
@@ -177,17 +177,17 @@ module Revenc
     # run the action if valid and return true if successful
     def execute
       raise errors.to_sentences unless valid?
-      
+
       # default failing command
       result = false
-      
+
       # protect command from recursion
       mutex = Mutagem::Mutex.new('revenc.lck')
-      lock_sucessful = mutex.execute do
+      lock_successful = mutex.execute do
         result = system_cmd(cmd)
       end
-      
-      raise "action failed, lock file present" unless lock_sucessful
+
+      raise "action failed, lock file present" unless lock_successful
       result
     end
   end
@@ -225,7 +225,7 @@ module Revenc
       @cmd = options[:cmd] || "<%= executable %> -u <%= mountpoint.name %>"
       @executable = options[:executable] || 'fusermount'
     end
-    
+
     # allow clarity in config files, instead of <%= name %> you can use <%= mountpoint.name %>
     def mountpoint
       self
@@ -247,7 +247,7 @@ module Revenc
       @cmd = options[:cmd] || "<%= executable %> -r <%= source.name %> <%= destination.name %>"
       @executable = options[:executable] || 'cp'
     end
-    
+
     # allow clarity in config files, instead of <%= name %> you can use <%= source.name %>
     def source
       self

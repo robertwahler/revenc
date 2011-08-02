@@ -6,7 +6,7 @@ Feature: Generate config files
   To save the hassle of manual config file creation
   And provide reasonable starting default values
 
-  Scenario: Sucessful generate
+  Scenario: Successful generate
 
   Scenario: Config file already exists
 
