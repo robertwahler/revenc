@@ -19,23 +19,23 @@ Feature: Configuration via yaml file
         keyfile:
           name: encfs6.xml
         executable: echo
-        cmd: cat <%%= passphrasefile.name %> | ENCFS6_CONFIG=<%%= keyfile.name %> <%%= executable %> --stdinpass --reverse <%%= source.name %> <%%= mountpoint.name %> -- -o ro
+        cmd: cat <%= passphrasefile.name %> | ENCFS6_CONFIG=<%= keyfile.name %> <%= executable %> --stdinpass --reverse <%= source.name %> <%= mountpoint.name %> -- -o ro
       unmount:
         mountpoint:
           name: defaults_to_mount_mountpoint
         executable: echo
-        cmd: <%%= executable %> -u <%%= name %>
+        cmd: <%= executable %> -u <%= name %>
       copy:
         source:
           name: copy_source_defaults_to_mount_mountpoint
         destination:
           name: copy_to_destination
         executable: echo
-        cmd: <%%= executable %> -e ssh --bwlimit=16 --perms --links --times --recursive --verbose --compress --stats --human-readable --inplace <%%= source.name %> <%%= destination.name %>
+        cmd: <%= executable %> -e ssh --bwlimit=16 --perms --links --times --recursive --verbose --compress --stats --human-readable --inplace <%= source.name %> <%= destination.name %>
       """
 
   Scenario: Mount with a config file
-    When I run "revenc --verbose --dry-run mount"
+    When I run `revenc --verbose --dry-run mount`
     Then the output should contain:
       """
       mount: source=source_folder_name
@@ -47,7 +47,7 @@ Feature: Configuration via yaml file
       """
 
   Scenario: Unmount with a config file
-    When I run "revenc unmount --verbose --dry-run"
+    When I run `revenc unmount --verbose --dry-run`
     Then the output should contain:
       """
       unmount: mountpoint=defaults_to_mount_mountpoint
@@ -62,14 +62,14 @@ Feature: Configuration via yaml file
         mountpoint:
           name: unmount_mountpoint_defaults_to_me
       """
-    When I run "revenc unmount --verbose --dry-run"
+    When I run `revenc unmount --verbose --dry-run`
     Then the output should contain:
       """
       unmount: mountpoint=unmount_mountpoint_defaults_to_me
       """
 
   Scenario: Copy with a config file
-    When I run "revenc copy --verbose --dry-run"
+    When I run `revenc copy --verbose --dry-run`
     Then the output should contain:
       """
       copy: source=copy_source_defaults_to_mount_mountpoint
@@ -88,7 +88,7 @@ Feature: Configuration via yaml file
         destination:
           name: copy_to_destination
       """
-    When I run "revenc copy --verbose --dry-run"
+    When I run `revenc copy --verbose --dry-run`
     Then the output should contain:
       """
       copy: source=copy_source_defaults_to_me

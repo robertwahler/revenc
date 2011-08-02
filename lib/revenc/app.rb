@@ -75,16 +75,16 @@ module Revenc
     #
     # TODO: Add status command, use encfsctl
 
-    def mount
-      EncfsWrapper.new(@base_dir, @options).mount(ARGV.shift, ARGV.shift)
+    def mount(args)
+      EncfsWrapper.new(@base_dir, @options).mount(args.shift, args.shift)
     end
 
-    def unmount
-      EncfsWrapper.new(@base_dir, @options).unmount(ARGV.shift)
+    def unmount(args)
+      EncfsWrapper.new(@base_dir, @options).unmount(args.shift)
     end
 
-    def copy
-      EncfsWrapper.new(@base_dir, @options).copy(ARGV.shift, ARGV.shift)
+    def copy(args)
+      EncfsWrapper.new(@base_dir, @options).copy(args.shift, args.shift)
     end
 
     #

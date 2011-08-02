@@ -14,21 +14,21 @@ Feature: Unmounting a reverse mounted encrypted folder using encfs
       """
       test
       """
-    And I successfully run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    And I successfully run `revenc mount unencrypted_source_folder encrypted_destination_folder`
 
   Scenario: Successful unmount
-    When I run "revenc unmount encrypted_destination_folder"
+    When I run `revenc unmount encrypted_destination_folder`
     Then the exit status should be 0
     And the folder "encrypted_destination_folder" should not be mounted
 
 
   Scenario: Successful unmount dry run
-    When I run "revenc --dry-run unmount encrypted_destination_folder"
+    When I run `revenc --dry-run unmount encrypted_destination_folder`
     Then the exit status should be 0
     And the folder "encrypted_destination_folder" should be mounted
 
   Scenario: Unmount folder not specified
-    When I run "revenc unmount"
+    When I run `revenc unmount`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -37,7 +37,7 @@ Feature: Unmounting a reverse mounted encrypted folder using encfs
 
   Scenario: Unmount folder doesn't exist
     Given a directory named "encrypted_destination_folder"
-    When I run "revenc unmount unencrypted_source_folder"
+    When I run `revenc unmount unencrypted_source_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -50,7 +50,7 @@ Feature: Unmounting a reverse mounted encrypted folder using encfs
       unmount:
         executable: missing_bin_file
       """
-    When I run "revenc unmount unencrypted_source_folder"
+    When I run `revenc unmount unencrypted_source_folder`
     Then the exit status should be 1
     And the output should contain:
       """

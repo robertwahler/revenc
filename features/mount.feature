@@ -15,7 +15,7 @@ Feature: Reverse mount encrypted folder using encfs
       """
       test
       """
-    When I run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc mount unencrypted_source_folder encrypted_destination_folder`
     Then the output should not contain "For more information, see the man page encfs(1)"
     And the exit status should be 0
 
@@ -28,12 +28,12 @@ Feature: Reverse mount encrypted folder using encfs
       """
       test
       """
-    When I run "revenc --dry-run mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc --dry-run mount unencrypted_source_folder encrypted_destination_folder`
     Then the exit status should be 0
     And the folder "encrypted_destination_folder" should not be mounted
 
   Scenario: Source folder not specified
-    When I run "revenc mount"
+    When I run `revenc mount`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -41,7 +41,7 @@ Feature: Reverse mount encrypted folder using encfs
       """
 
   Scenario: Destination mount point not specified
-    When I run "revenc mount unencrypted_source_folder"
+    When I run `revenc mount unencrypted_source_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -50,7 +50,7 @@ Feature: Reverse mount encrypted folder using encfs
 
   Scenario: Source folder doesn't exist
     Given a directory named "encrypted_destination_folder"
-    When I run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc mount unencrypted_source_folder encrypted_destination_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -60,7 +60,7 @@ Feature: Reverse mount encrypted folder using encfs
   Scenario: Destination mount point doesn't exist
     Given a directory named "unencrypted_source_folder"
     Given an empty file named "unencrypted_source_folder/test_data.txt"
-    When I run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc mount unencrypted_source_folder encrypted_destination_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -72,7 +72,7 @@ Feature: Reverse mount encrypted folder using encfs
     Given an empty file named "unencrypted_source_folder/test_data.txt"
     Given a directory named "encrypted_destination_folder"
     Given an empty file named "encrypted_destination_folder/should_not_be_here.txt"
-    When I run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc mount unencrypted_source_folder encrypted_destination_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -83,7 +83,7 @@ Feature: Reverse mount encrypted folder using encfs
     Given a directory named "unencrypted_source_folder"
     Given an empty file named "unencrypted_source_folder/test_data.txt"
     Given a directory named "encrypted_destination_folder"
-    When I run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc mount unencrypted_source_folder encrypted_destination_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -95,7 +95,7 @@ Feature: Reverse mount encrypted folder using encfs
     Given an empty file named "unencrypted_source_folder/test_data.txt"
     Given a directory named "encrypted_destination_folder"
     Given an empty file named "passphrase"
-    When I run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc mount unencrypted_source_folder encrypted_destination_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -103,7 +103,7 @@ Feature: Reverse mount encrypted folder using encfs
       """
 
   Scenario: Key file not found
-    When I run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc mount unencrypted_source_folder encrypted_destination_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -112,7 +112,7 @@ Feature: Reverse mount encrypted folder using encfs
 
   Scenario: Key file is empty
     Given an empty file named "encfs6.xml"
-    When I run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc mount unencrypted_source_folder encrypted_destination_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -125,7 +125,7 @@ Feature: Reverse mount encrypted folder using encfs
       mount:
         executable: missing_bin_file
       """
-    When I run "revenc mount unencrypted_source_folder encrypted_destination_folder"
+    When I run `revenc mount unencrypted_source_folder encrypted_destination_folder`
     Then the exit status should be 1
     And the output should contain:
       """

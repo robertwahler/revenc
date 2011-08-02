@@ -23,7 +23,40 @@ module Revenc
       configuration = {
                         :options => {
                           :verbose => false,
-                          :coloring => true
+                          :coloring => 'AUTO'
+                        },
+                        :mount => {
+                          :source => {
+                            :name => nil
+                          },
+                          :mountpoint => {
+                            :name => nil
+                          },
+                          :passphrasefile => {
+                            :name => 'passphrase'
+                          },
+                          :keyfile => {
+                            :name => 'encfs6.xml'
+                          },
+                          :cmd => nil,
+                          :executable => nil
+                        },
+                        :unmount => {
+                          :mountpoint => {
+                            :name => nil
+                          },
+                          :cmd => nil,
+                          :executable => nil
+                        },
+                        :copy => {
+                          :source => {
+                            :name => nil
+                          },
+                          :destination => {
+                            :name => nil
+                          },
+                          :cmd => nil,
+                          :executable => nil
                         }
                       }
 
@@ -54,6 +87,10 @@ module Revenc
       @options = configuration[:options].merge!(@options)
       @options.symbolize_keys!
 
+      # mount, unmount and copy configuration hashes
+      @options[:mount] = configuration[:mount].recursively_symbolize_keys! if configuration[:mount]
+      @options[:unmount] = configuration[:unmount].recursively_symbolize_keys! if configuration[:unmount]
+      @options[:copy] = configuration[:copy].recursively_symbolize_keys! if configuration[:copy]
     end
 
   end

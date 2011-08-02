@@ -12,6 +12,9 @@ from an unencrypted source folder.  This allows keeping your files unencrypted
 in a trusted environment while gaining the ability to encrypt on demand
 i.e. when you want to rsync encrypted files off-site to an untrusted system.
 
+Revenc was jump-started by cloning from
+[BasicApp](http://github.com/robertwahler/basicapp).
+
 Why Revenc?
 -----------
 
@@ -35,7 +38,6 @@ Installation
 ------------
 
 gem install revenc
-
 
 Usage
 -----
@@ -172,33 +174,30 @@ See the example configuration file examples/rsync/revenc.conf.
 
 The file features/configuration.feature has more details.
 
-
 System Requirements
 -------------------
 
 * POSIX system
 * EncFS http://www.arg0.net/encfs
 
-
 Run-time dependencies
 ---------------------
-The following gems are required by default in applications cloned from BasicApp.
+The following gems are required
 
 * Term-ansicolor for optional color output <http://github.com/flori/term-ansicolor>
-* Configatron for configuration support <http://github.com/markbates/configatron>
-
+* Mutagem for mutex support <http://github.com/robertwahler/mutagem>
 
 Development dependencies
 ------------------------
 
 * Bundler for dependency management <http://github.com/carlhuda/bundler>
-* Rspec for unit testing <http://github.com/dchelimsky/rspec>
-* Cucumber for functional testing <http://github.com/aslakhellesoy/cucumber>
-* Aruba for CLI testing <http://github.com/aslakhellesoy/aruba>
-* YARD for documentation generation <http://github.com/lsegal/yard>
-
+* Rspec for unit testing <http://github.com/rspec/rspec>
+* Cucumber for functional testing <http://github.com/cucumber/cucumber>
+* Aruba for CLI testing <http://github.com/cucumber/aruba>
+* Yard for documentation generation <http://github.com/lsegal/yard>
+* Redcarpet for documentation markup processing <http://github.com/tanoku/redcarpet>
 
 Copyright
 ---------
 
-Copyright (c) 2010 GearheadForHire, LLC. See [LICENSE](LICENSE) for details.
+Copyright (c) 2010-2011 GearheadForHire, LLC. See [LICENSE](LICENSE) for details.

@@ -9,21 +9,18 @@ module Revenc
     end
 
     def mount(source=nil, mount_point_folder=nil)
+      mount_point_options = @options || {}
+      mount_point_options = mount_point_options.merge(@options[:mount].dup) if @options[:mount]
 
       # add params from config file if not specified
-      source = configatron.mount.source.name unless source
-      mount_point_folder = configatron.mount.mountpoint.name unless mount_point_folder
+      source = (mount_point_options[:source] ? mount_point_options[:source][:name] : nil) unless source
+      mount_point_folder = (mount_point_options[:mountpoint] ? mount_point_options[:mountpoint][:name] : nil) unless mount_point_folder
 
       # sanity check params
       raise "source folder not specified" unless source
       raise "mountpoint not specified" unless mount_point_folder
 
-      mount_point_options = @options.merge(:passphrasefile => configatron.mount.passphrasefile.name)
-      mount_point_options = mount_point_options.merge(:keyfile => configatron.mount.keyfile.name)
-      mount_point_options = mount_point_options.merge(:cmd => configatron.mount.cmd) if configatron.mount.cmd
-      mount_point_options = mount_point_options.merge(:executable => configatron.mount.executable) if configatron.mount.executable
-
-      mount_point = MountPoint.new(mount_point_folder, source, mount_point_options)
+      mount_point = MountPoint.new(mount_point_folder, source, mount_point_options.merge(@options))
 
       if @options[:verbose]
         puts "mount: source=#{mount_point.source.name}".cyan
@@ -38,18 +35,18 @@ module Revenc
     end
 
     def unmount(foldername = nil)
+      unmount_point_options = @options || {}
+      unmount_point_options = unmount_point_options.merge(@options[:unmount].dup) if @options[:unmount]
+      mount_point_options = @options[:mount] ? @options[:mount].dup : {}
 
       # add param from config file if not specified, try specific unmount
-      foldername = configatron.unmount.mountpoint.name unless foldername
+      foldername = (unmount_point_options[:mountpoint] ? unmount_point_options[:mountpoint][:name] : nil) unless foldername
       # fallback to mount.mountpoint if specified
-      foldername = configatron.mount.mountpoint.name unless foldername
+      foldername = (mount_point_options[:mountpoint] ? mount_point_options[:mountpoint][:name] : nil) unless foldername
 
       # sanity check params
       raise "mountpoint not specified" unless foldername
 
-      unmount_point_options = @options || {}
-      unmount_point_options = unmount_point_options.merge(:cmd => configatron.unmount.cmd) if configatron.umount.cmd
-      unmount_point_options = unmount_point_options.merge(:executable => configatron.unmount.executable) if configatron.umount.executable
       unmount_point = UnmountPoint.new(foldername, unmount_point_options)
 
       if @options[:verbose]
@@ -62,23 +59,22 @@ module Revenc
     end
 
     def copy(source=nil, destination=nil)
+      copy_options = @options || {}
+      copy_options = copy_options.merge(@options[:copy].dup) if @options[:copy]
+      mount_point_options = @options[:mount] ? @options[:mount].dup : {}
 
       # add params from config file if not specified
-      source = configatron.copy.source.name unless source
+      source = (copy_options[:source] ? copy_options[:source][:name] : nil) unless source
       # fallback
-      source = configatron.mount.mountpoint.name unless source
-      destination = configatron.copy.destination.name unless destination
+      source = (mount_point_options[:mountpoint] ? mount_point_options[:mountpoint][:name] : nil) unless source
+      destination = (copy_options[:destination] ? copy_options[:destination][:name] : nil)  unless destination
 
       # sanity check params
       raise "source folder not specified" unless source
       raise "destination not specified" unless destination
 
-      copy_options = @options || {}
-      copy_options = copy_options.merge(:cmd => configatron.copy.cmd) if configatron.copy.cmd
-      copy_options = copy_options.merge(:executable => configatron.copy.executable) if configatron.copy.executable
-      copy_options = copy_options.merge(:mountpoint => configatron.mount.mountpoint.name) if configatron.mount.mountpoint.name
-
-      copy_folder = CopySourceFolder.new( source, destination, copy_options)
+      copy_options = copy_options.merge(:mountpoint => mount_point_options[:mountpoint][:name]) if mount_point_options[:mountpoint]
+      copy_folder = CopySourceFolder.new(source, destination, copy_options)
 
       if @options[:verbose]
         puts "copy: source=#{copy_folder.name}".cyan

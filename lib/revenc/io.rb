@@ -62,7 +62,6 @@ module Revenc
       system cmd
     end
 
-    # Runs the YAML file through ERB
     def render(value, b = binding)
       ERB.new(value).result(b)
     end
@@ -156,8 +155,8 @@ module Revenc
 
     def initialize(name=nil, options={})
       super
-      @passphrasefile = PassphraseFile.new(options[:passphrasefile])
-      @keyfile = KeyFile.new(options[:keyfile])
+      @passphrasefile = PassphraseFile.new(options[:passphrasefile] ? options[:passphrasefile][:name] : nil)
+      @keyfile = KeyFile.new(options[:keyfile] ? options[:keyfile][:name] : nil)
       @cmd = options[:cmd]
       @executable = options[:executable]
     end

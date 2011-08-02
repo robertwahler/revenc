@@ -17,7 +17,7 @@ Feature: Copy encrypted data to another location via rsync
         mountpoint:
           name: encrypted_source_folder
       """
-    When I run "revenc copy encrypted_source_folder encrypted_destination"
+    When I run `revenc copy encrypted_source_folder encrypted_destination`
     Then the exit status should be 0
     And the following files should exist:
       | encrypted_destination/encrypted_source_folder/test_data1.txt |
@@ -34,7 +34,7 @@ Feature: Copy encrypted data to another location via rsync
         mountpoint:
           name: encrypted_source_folder
       """
-    When I run "revenc copy --dry-run encrypted_source_folder encrypted_destination"
+    When I run `revenc copy --dry-run encrypted_source_folder encrypted_destination`
     Then the exit status should be 0
     And the following files should not exist:
       | encrypted_destination/encrypted_source_folder/test_data1.txt |
@@ -58,7 +58,7 @@ Feature: Copy encrypted data to another location via rsync
       """
 
   Scenario: Source folder not specified
-    When I run "revenc copy"
+    When I run `revenc copy`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -66,7 +66,7 @@ Feature: Copy encrypted data to another location via rsync
       """
 
   Scenario: Destination not specified
-    When I run "revenc copy encrypted_source_folder"
+    When I run `revenc copy encrypted_source_folder`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -74,7 +74,7 @@ Feature: Copy encrypted data to another location via rsync
       """
 
   Scenario: Source folder doesn't exist
-    When I run "revenc copy encrypted_source_folder encrypted_destination"
+    When I run `revenc copy encrypted_source_folder encrypted_destination`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -83,7 +83,7 @@ Feature: Copy encrypted data to another location via rsync
 
   Scenario: Source folder is empty
     Given a directory named "encrypted_source_folder"
-    When I run "revenc copy encrypted_source_folder encrypted_destination"
+    When I run `revenc copy encrypted_source_folder encrypted_destination`
     Then the exit status should be 1
     And the output should contain:
       """
@@ -106,7 +106,7 @@ Feature: Copy encrypted data to another location via rsync
         destination:
           name: copy_to_destination
       """
-    When I run "revenc copy --verbose --dry-run"
+    When I run `revenc copy --verbose --dry-run`
     Then the output should contain:
       """
       mountpoint is empty
@@ -127,7 +127,7 @@ Feature: Copy encrypted data to another location via rsync
         destination:
           name: copy_to_destination
       """
-    When I run "revenc copy --verbose --dry-run"
+    When I run `revenc copy --verbose --dry-run`
     Then the output should contain:
       """
       mountpoint not found
@@ -145,7 +145,7 @@ Feature: Copy encrypted data to another location via rsync
         destination:
           name: copy_to_destination
       """
-    When I run "revenc copy --verbose --dry-run"
+    When I run `revenc copy --verbose --dry-run`
     Then the output should not contain:
       """
       mountpoint not found
@@ -161,7 +161,7 @@ Feature: Copy encrypted data to another location via rsync
       copy:
         executable: missing_bin_file
       """
-    When I run "revenc copy encrypted_source_folder encrypted_destination"
+    When I run `revenc copy encrypted_source_folder encrypted_destination`
     Then the exit status should be 1
     And the output should contain:
       """

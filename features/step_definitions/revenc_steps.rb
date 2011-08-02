@@ -47,7 +47,7 @@ end
 When /^I run with a lock file present "(.*)"$/ do |cmd|
   lockfile = File.join(current_dir, 'revenc.lck')
   Mutagem::Mutex.new(lockfile).execute do
-    run(unescape(cmd), false)
+    run_simple(unescape(cmd), false)
   end
 end
 
@@ -62,4 +62,3 @@ Then /^the folder "([^\"]*)" should be mounted$/ do |folder_name|
   folder.exists?.should be_true
   folder.should_not be_empty
 end
-
