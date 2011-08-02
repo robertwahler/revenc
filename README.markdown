@@ -1,32 +1,32 @@
 Revenc
 ======
 
-Mount an unencrypted folder as encrypted using EncFS and copy/synchronize the 
+Mount an unencrypted folder as encrypted using EncFS and copy/synchronize the
 encrypted files to untrusted destinations using rsync/cp
 
 Background
 ----------
 
-EncFS in reverse mode facilitates mounting an encrypted file system 
-from an unencrypted source folder.  This allows keeping your files unencrypted 
-in a trusted environment while gaining the ability to encrypt on demand 
+EncFS in reverse mode facilitates mounting an encrypted file system
+from an unencrypted source folder.  This allows keeping your files unencrypted
+in a trusted environment while gaining the ability to encrypt on demand
 i.e. when you want to rsync encrypted files off-site to an untrusted system.
 
 Why Revenc?
 -----------
 
-Revenc facilitates scripting EncFS reverse mounting and synchronizing by 
-providing a configuration framework and validating mounts before running tools 
+Revenc facilitates scripting EncFS reverse mounting and synchronizing by
+providing a configuration framework and validating mounts before running tools
 like rsync.
 
-Benefits 
+Benefits
 --------
 
 * Provides conventions for EncFS reverse mounting
-* Validates mountpoints before copying to prevent "rsync --delete" commands 
-  from trying to sync empty folders 
-* Mount, unmount, and copy actions are protected by a mutex to prevent 
-  recursion on long running copy/sync operations.  (mount, unmount and 
+* Validates mountpoints before copying to prevent "rsync --delete" commands
+  from trying to sync empty folders
+* Mount, unmount, and copy actions are protected by a mutex to prevent
+  recursion on long running copy/sync operations.  (mount, unmount and
   copy actions will fail if another instance of revenc is blocking)
 * Allow short, easy to remember command lines when used with configuration files.
   i.e. revenc mount, revenc unmount, revenc copy
@@ -61,7 +61,7 @@ This calls the executable "encfs" with the following by default:
 
 Unmount using EncFS. Mountpoint is required when specified by revenc.conf.
 
-    Unmount: revenc unmount <mountpoint> 
+    Unmount: revenc unmount <mountpoint>
 
 This calls the executable "fusermount" with the following by default:
 
@@ -95,7 +95,7 @@ The following is a walk through of the steps used to create the example project
 ### Create the EncFS passphrase file ###
 
 You must supply EncFS with a passphrase in plain text. The passphrase is piped in on the command line
-to EncFS.  This file can be stored anywhere on your trusted system.  Revenc expects it in the 
+to EncFS.  This file can be stored anywhere on your trusted system.  Revenc expects it in the
 current folder, use revenc.conf to supply a different location.
 
     echo "my_super_secret_PassPHRase" > passphrase
@@ -103,12 +103,12 @@ current folder, use revenc.conf to supply a different location.
 
 ### Generate the EncFS key file ###
 
-Generation of your key file is done once.  The same key is used for each mount action on the same 
+Generation of your key file is done once.  The same key is used for each mount action on the same
 unencrypted source folder.  You need to keep a copy of your key available in order to restore encrypted files.
-EncFS doesn't supply a method to fully automate the generation of the key file with so it needs 
-to be done manually. 
+EncFS doesn't supply a method to fully automate the generation of the key file with so it needs
+to be done manually.
 
-NOTE: The ENCFS6_CONFIG var is needed to control where the key file is created.  The "${PWD}" is 
+NOTE: The ENCFS6_CONFIG var is needed to control where the key file is created.  The "${PWD}" is
 used because EncFS expects full paths from the root folder.
 
     ENCFS6_CONFIG=./encfs6.xml encfs --reverse ${PWD}/unencrypted_data  ${PWD}/encrypted_mountpoint -- -o ro
@@ -118,17 +118,17 @@ command prompt.  You can complete the key generation any way you like.  The foll
 used to generate the sample key.  Note the I opted to store filenames in plain text for clarity.
 
 EncFS command prompt responses:
-    
+
     x                              # expert mode
     1                              # AES
     128                            # key size
     1024                           # block size
-    2                              # Null => no encryption of filenames 
+    2                              # Null => no encryption of filenames
     my_super_secret_PassPHRase     # passphrase we stored in the step above
     my_super_secret_PassPHRase     # confirm passphrase
 
 
-EncFS should generate encfs6.xml, mount the folder and return you to the command prompt. You can 
+EncFS should generate encfs6.xml, mount the folder and return you to the command prompt. You can
 now work with your encrypted files.
 
     ls encrypted_mountpoint
@@ -137,7 +137,7 @@ now work with your encrypted files.
 
     revenc unmount encrypted_mountpoint
     ls encrypted_mountpoint
-       
+
         <no files here>
 
     revenc mount unencrypted_data encrypted_mountpoint
@@ -166,21 +166,21 @@ you can ommit action parameters. For example:
     revenc unmount
 
 The configuration file is YAML http://www.yaml.org/ format with ERB processing. You must
-escape ERB in the action commands.  These need to be lazy loaded by Revenc. Unescaped 
+escape ERB in the action commands.  These need to be lazy loaded by Revenc. Unescaped
 ERB is evaluated as the configuration file is read but before Revenc parses the commands.
 See the example configuration file examples/rsync/revenc.conf.
 
 The file features/configuration.feature has more details.
 
 
-System Requirements 
+System Requirements
 -------------------
 
 * POSIX system
-* EncFS http://www.arg0.net/encfs 
+* EncFS http://www.arg0.net/encfs
 
 
-Run-time dependencies 
+Run-time dependencies
 ---------------------
 The following gems are required by default in applications cloned from BasicApp.
 

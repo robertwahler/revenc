@@ -1,9 +1,9 @@
 @announce
 Feature: Reverse mount encrypted folder using encfs
 
-  As a user with unencrypted data 
+  As a user with unencrypted data
   I need to mount an encrypted folder from an unencrypted folder
-  In order to backup the encrypted folder to untrusted systems 
+  In order to backup the encrypted folder to untrusted systems
 
   @unmount_after
   Scenario: Successful mount

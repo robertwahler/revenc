@@ -15,12 +15,12 @@ Feature: Unmounting a reverse mounted encrypted folder using encfs
       test
       """
     And I successfully run "revenc mount unencrypted_source_folder encrypted_destination_folder"
-    
+
   Scenario: Successful unmount
     When I run "revenc unmount encrypted_destination_folder"
     Then the exit status should be 0
     And the folder "encrypted_destination_folder" should not be mounted
-    
+
 
   Scenario: Successful unmount dry run
     When I run "revenc --dry-run unmount encrypted_destination_folder"

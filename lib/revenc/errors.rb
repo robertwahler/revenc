@@ -20,7 +20,7 @@ module Revenc
        error_on_str = error_on_str.gsub(/_/, ' ')
        error_on_str = error_on_str.gsub(/^revenc/, '').strip
        #error_on_str = error_on_str.capitalize
-       
+
        @errors[error_on_str] ||= []
        @errors[error_on_str] << message.to_s
     end
@@ -28,7 +28,7 @@ module Revenc
     def empty?
       @errors.empty?
     end
- 
+
     def clear
       @errors = {}
     end
@@ -40,7 +40,7 @@ module Revenc
     def size
       @errors.values.inject(0) { |error_count, attribute| error_count + attribute.size }
     end
- 
+
     alias_method :count, :size
     alias_method :length, :size
 

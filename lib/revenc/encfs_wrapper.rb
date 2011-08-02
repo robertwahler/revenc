@@ -38,12 +38,12 @@ module Revenc
     end
 
     def unmount(foldername = nil)
-      
+
       # add param from config file if not specified, try specific unmount
       foldername = configatron.unmount.mountpoint.name unless foldername
       # fallback to mount.mountpoint if specified
       foldername = configatron.mount.mountpoint.name unless foldername
-      
+
       # sanity check params
       raise "mountpoint not specified" unless foldername
 

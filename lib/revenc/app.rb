@@ -86,7 +86,7 @@ module Revenc
     def copy
       EncfsWrapper.new(@base_dir, @options).copy(ARGV.shift, ARGV.shift)
     end
-    
+
     #
     # app commands end
     #

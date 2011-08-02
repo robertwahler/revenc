@@ -55,7 +55,7 @@ Feature: Configuration via yaml file
       unmount: executable=/bin/echo
       """
 
-  Scenario: Unmount with a config file missing unmount.mountpoint 
+  Scenario: Unmount with a config file missing unmount.mountpoint
     Given a file named "revenc.conf" with:
       """
       mount:

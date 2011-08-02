@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Revenc::Errors do
-  
+
   before(:each) do
     @error_obj = Revenc::Errors.new
   end
-  
+
   it "should be empty when created" do
     @error_obj.should be_empty
   end
