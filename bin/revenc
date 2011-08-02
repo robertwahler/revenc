@@ -2,6 +2,7 @@
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 
+require 'rubygems'
 require 'revenc'
 require 'optparse'
 require 'term/ansicolor'
@@ -23,23 +24,24 @@ Unmount: revenc unmount <mounted encypted folder>
          Note: Copying is normally done via rsync
 
 Options:
- 
+
 HELP
 
 options = {}
 OptionParser.new do |opts|
   opts.banner = help
 
-  # set defaults
-  options[:verbose] = false
-  options[:coloring] = true
-
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
     options[:verbose] = v
   end
 
-  opts.on("-c", "--[no-]coloring", "Ansi color in output") do |c|
-    options[:coloring] = c
+  opts.on("-c", "--[no-]coloring [MODE]", "ANSI color in output. MODE=AUTO (default) or ALWAYS") do |c|
+    options[:coloring] = c.nil? ? "AUTO" : c
+    options[:coloring].upcase! if options[:coloring]
+    unless [nil, false, "AUTO", "ALWAYS"].include?(options[:coloring])
+      puts "basic_app, invalid color option: #{options[:coloring]}"
+      exit 1
+    end
   end
 
   opts.on("--version", "Display current version") do
@@ -47,12 +49,8 @@ OptionParser.new do |opts|
     exit 0
   end
 
-  opts.on("-d", "--dry-run", "Run action but omit the final execute step.  Useful combined with --verbose") do |d|
-    options[:dry_run] = d
-  end
-
   opts.on("--config FILE", "Load configuration options from FILE") do |file|
-    options[:config] = file 
+    options[:config] = file
   end
 
   # no argument, shows at tail.  This will print an options summary.
@@ -60,7 +58,7 @@ OptionParser.new do |opts|
     puts opts
     exit 0
   end
-  
+
   begin
     opts.parse!
   rescue OptionParser::InvalidOption => e
@@ -71,11 +69,26 @@ OptionParser.new do |opts|
 
 end
 
-if STDOUT.isatty
+# options from config file, if it exists, will not overwrite command line
+options = BasicApp::Settings.new(FileUtils.pwd, options).options
+
+if STDOUT.isatty || (options[:coloring] == 'ALWAYS')
   Term::ANSIColor::coloring = options[:coloring]
+
+  if options[:coloring] && BasicApp::WINDOWS
+    unless ENV['ANSICON']
+      begin
+        require 'Win32/Console/ANSI'
+      rescue LoadError
+        Term::ANSIColor::coloring = false
+        STDERR.puts 'WARNING: You must "gem install win32console" (1.2.0 or higher) or use the ANSICON driver (https://github.com/adoxa/ansicon) to get color output on MRI/Windows'
+      end
+    end
+  end
+
 else
   Term::ANSIColor::coloring = false
 end
 
-app = Revenc::App.new(FileUtils.pwd, options)
-app.run
+app = Revenc::App.new(FileUtils.pwd, ARGV.dup, options)
+app.execute

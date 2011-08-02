@@ -5,15 +5,10 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__) unless
 
 require 'rubygems'
 require 'revenc'
-require 'spec'
-require 'spec/autorun'
+require 'rspec/core'
 require 'aruba/api'
+require 'aruba_helper'
 
-# aruba helper, returns full path to files in the aruba tmp folder
-def fullpath(filename)
-  File.expand_path(File.join(current_dir, filename))
-end
-
-Spec::Runner.configure do |config|
-   config.include Aruba::Api
+RSpec.configure do |config|
+  config.include Aruba::Api
 end
