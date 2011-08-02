@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe BasicApp  do
+describe Revenc  do
 
   before(:each) do
     @filename = 'input.txt'

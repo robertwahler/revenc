@@ -1,4 +1,5 @@
 require 'mutagem'
+require 'erb'
 
 module Revenc
 

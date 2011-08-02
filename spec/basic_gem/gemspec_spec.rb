@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe BasicApp do
+describe Revenc do
 
   def load_gemspec
-    filename = File.expand_path('../../../basic_app.gemspec', __FILE__)
+    filename = File.expand_path('../../../revenc.gemspec', __FILE__)
     eval(File.read(filename), nil, filename)
   end
 
@@ -11,8 +11,8 @@ describe BasicApp do
 
     it "should return the gem VERSION" do
       @gemspec = load_gemspec
-      BasicApp::version.should_not be_nil
-      @gemspec.version.to_s.should == BasicApp::version
+      Revenc::version.should_not be_nil
+      @gemspec.version.to_s.should == Revenc::version
     end
 
     describe 'files' do

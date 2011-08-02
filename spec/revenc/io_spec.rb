@@ -1,23 +1,23 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Revenc::FileSystemEntity do
-  
+
   before(:each) do
     FileUtils.rm_rf(current_dir)
   end
 
   describe Revenc::TextFile do
-    
+
     it "should be valid" do
       filename = "text_file"
-      create_file(filename, "passphrase")
+      write_file(filename, "passphrase")
       text_file = Revenc::TextFile.new(fullpath(filename))
       text_file.should be_valid
     end
 
     it "should return a fully qualified file name" do
       filename = "text_file"
-      create_file(filename, "passphrase")
+      write_file(filename, "passphrase")
       relative_path_filename = File.join('tmp', 'aruba', filename)
       text_file = Revenc::TextFile.new(relative_path_filename)
       text_file.should be_valid
@@ -36,7 +36,7 @@ describe Revenc::FileSystemEntity do
 
     it "should be valid if empty" do
       filename = "text_file"
-      create_file(filename, "")
+      write_file(filename, "")
       text_file = Revenc::TextFile.new(fullpath(filename))
       text_file.should be_valid
     end
@@ -50,14 +50,14 @@ describe Revenc::FileSystemEntity do
 
       it "should be valid" do
         filename = "text_file"
-        create_file(filename, "passphrase")
+        write_file(filename, "passphrase")
         text_file = Revenc::PassphraseFile.new(fullpath(filename))
         text_file.should be_valid
       end
 
       it "should not be valid if empty" do
         filename = "text_file"
-        create_file(filename, "")
+        write_file(filename, "")
         text_file = Revenc::PassphraseFile.new(fullpath(filename))
         text_file.exists?.should be(true)
         text_file.should_not be_valid
@@ -70,14 +70,14 @@ describe Revenc::FileSystemEntity do
 
       it "should be valid" do
         filename = "encfs6.xml"
-        create_file(filename, "DOCTYPE boost_serialization")
+        write_file(filename, "DOCTYPE boost_serialization")
         text_file = Revenc::KeyFile.new(fullpath(filename))
         text_file.should be_valid
       end
 
       it "should not be valid if empty" do
         filename = "encfs6.xml"
-        create_file(filename, "")
+        write_file(filename, "")
         text_file = Revenc::KeyFile.new(fullpath(filename))
         text_file.exists?.should be(true)
         text_file.should_not be_valid
@@ -89,7 +89,7 @@ describe Revenc::FileSystemEntity do
   end
 
   describe Revenc::FileFolder do
-    
+
     it "should be valid if empty" do
       foldername = "folder1"
       create_dir(foldername)
@@ -145,7 +145,7 @@ describe Revenc::FileSystemEntity do
       end
 
       describe Revenc::MountPoint do
-        
+
         it "should have an accessor 'mountpoint' equal to self" do
           foldername = "folder1"
           mountpoint = Revenc::MountPoint.new(fullpath(foldername))
@@ -166,7 +166,7 @@ describe Revenc::FileSystemEntity do
       end
 
       describe Revenc::UnmountPoint do
-        
+
         it "should not be valid if fusermount executable not found" do
           # stub out check for executable with double that can't find fusermount
           double = Revenc::UnmountPoint.new

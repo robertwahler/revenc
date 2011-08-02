@@ -19,7 +19,7 @@ banner << "\nActions: #{available_actions.join(' ')}\n" unless available_actions
 help = banner
 help += <<HELP
   Mount: revenc mount <unencrypted source> <empty mountpoint>
-Unmount: revenc unmount <mounted encypted folder> 
+Unmount: revenc unmount <mounted encypted folder>
    Copy: revenc copy <encrypted source>  <destination>
          Note: Copying is normally done via rsync
 
@@ -39,7 +39,7 @@ OptionParser.new do |opts|
     options[:coloring] = c.nil? ? "AUTO" : c
     options[:coloring].upcase! if options[:coloring]
     unless [nil, false, "AUTO", "ALWAYS"].include?(options[:coloring])
-      puts "basic_app, invalid color option: #{options[:coloring]}"
+      puts "revenc, invalid color option: #{options[:coloring]}"
       exit 1
     end
   end
@@ -70,12 +70,12 @@ OptionParser.new do |opts|
 end
 
 # options from config file, if it exists, will not overwrite command line
-options = BasicApp::Settings.new(FileUtils.pwd, options).options
+options = Revenc::Settings.new(FileUtils.pwd, options).options
 
 if STDOUT.isatty || (options[:coloring] == 'ALWAYS')
   Term::ANSIColor::coloring = options[:coloring]
 
-  if options[:coloring] && BasicApp::WINDOWS
+  if options[:coloring] && Revenc::WINDOWS
     unless ENV['ANSICON']
       begin
         require 'Win32/Console/ANSI'

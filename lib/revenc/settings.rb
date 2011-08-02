@@ -1,6 +1,6 @@
 require 'yaml'
 
-module BasicApp
+module Revenc
 
   class Settings
 
@@ -31,10 +31,10 @@ module BasicApp
       config = @options[:config]
       unless config
         config = [
-                   File.join(@working_dir, "basic_app.conf"),
-                   File.join(@working_dir, ".basic_app.conf"),
-                   File.join(@working_dir, "config", "basic_app.conf"),
-                   File.expand_path(File.join("~", ".basic_app.conf"))
+                   File.join(@working_dir, "revenc.conf"),
+                   File.join(@working_dir, ".revenc.conf"),
+                   File.join(@working_dir, "config", "revenc.conf"),
+                   File.expand_path(File.join("~", ".revenc.conf"))
                  ].detect { |filename| File.exists?(filename) }
       end
 
