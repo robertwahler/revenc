@@ -177,12 +177,10 @@ The file features/configuration.feature has more details.
 System Requirements
 -------------------
 
-* POSIX system
-* EncFS http://www.arg0.net/encfs
+* EncFS http://www.arg0.net/encfs  (tested on versions: 1.5, 1.6)
 
 Run-time dependencies
 ---------------------
-The following gems are required
 
 * Term-ansicolor for optional color output <http://github.com/flori/term-ansicolor>
 * Mutagem for mutex support <http://github.com/robertwahler/mutagem>
