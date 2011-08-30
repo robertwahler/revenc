@@ -6,7 +6,7 @@ Feature: Copy encrypted data to another location via rsync
   And lock the process to prevent automated recursion on long running copy commands
   In order to backup the data and allow recovery of the unencrypted data
 
-  Scenario: Successful copy
+  Scenario: Successful copy with non-default ERB copy cmd
     Given a directory named "encrypted_source_folder"
     Given a directory named "encrypted_destination"
     Given an empty file named "encrypted_source_folder/test_data1.txt"
@@ -16,6 +16,9 @@ Feature: Copy encrypted data to another location via rsync
       mount:
         mountpoint:
           name: encrypted_source_folder
+      copy:
+        executable: cp
+        cmd: <%= executable %> -r <%= source.name %> <%= destination.name %>
       """
     When I run `revenc copy encrypted_source_folder encrypted_destination`
     Then the exit status should be 0

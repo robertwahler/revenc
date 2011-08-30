@@ -13,7 +13,7 @@ in a trusted environment while gaining the ability to encrypt on demand
 i.e. when you want to rsync encrypted files off-site to an untrusted system.
 
 Revenc was jump-started by cloning from
-[BasicApp](http://github.com/robertwahler/basicapp).
+[BasicApp](https://github.com/robertwahler/basic_app).
 
 Why Revenc?
 -----------
