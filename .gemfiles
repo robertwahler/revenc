@@ -1,7 +1,6 @@
 .gemfiles
 .gitattributes
 .gitignore
-.yardopts
 Gemfile
 Gemfile.lock
 HISTORY.markdown

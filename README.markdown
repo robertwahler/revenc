@@ -192,10 +192,8 @@ Development dependencies
 * Rspec for unit testing <http://github.com/rspec/rspec>
 * Cucumber for functional testing <http://github.com/cucumber/cucumber>
 * Aruba for CLI testing <http://github.com/cucumber/aruba>
-* Yard for documentation generation <http://github.com/lsegal/yard>
-* Redcarpet for documentation markup processing <http://github.com/tanoku/redcarpet>
 
 Copyright
 ---------
 
-Copyright (c) 2010-2011 GearheadForHire, LLC. See [LICENSE](LICENSE) for details.
+Copyright (c) 2010-2017 GearheadForHire, LLC. See [LICENSE](LICENSE) for details.
