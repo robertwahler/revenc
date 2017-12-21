@@ -25,8 +25,8 @@ module Revenc
 
   # Platform constants
   unless defined?(Revenc::WINDOWS)
-    WINDOWS = Config::CONFIG['host_os'] =~ /mswin|mingw/i
-    CYGWIN = Config::CONFIG['host_os'] =~ /cygwin/i
+    WINDOWS = RbConfig::CONFIG['host_os'] =~ /mswin|mingw/i
+    CYGWIN = RbConfig::CONFIG['host_os'] =~ /cygwin/i
   end
 
 end
